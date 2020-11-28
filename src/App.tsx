@@ -1,25 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+
+const GRID_COLUMNS = 30;
+const GRID_ROWS = 30;
+
+const SDiv = styled.div`
+  padding: 3rem;
+`;
+
+const SGrid = styled.div`
+  display: grid;
+  grid-template: repeat(${GRID_ROWS}, 1fr) / repeat(${GRID_COLUMNS}, 1fr);
+  gap: 0px;
+  width: 30rem;
+  height: 30rem;
+`;
+
+const SNode = styled.div`
+  border: 1px solid blue;
+`;
 
 function App() {
+  const gridArray = Array.from(Array(GRID_COLUMNS * GRID_ROWS))
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SDiv>
+      Yoooo
+      <SGrid>
+        {gridArray.map((_, i) => <SNode key={i}>{i}</SNode>)}
+      </SGrid>
+    </SDiv>
   );
 }
 
