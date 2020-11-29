@@ -3,13 +3,22 @@ import styled from "styled-components";
 
 import Node from "./components/Node";
 
-const START_POSITION = {
+const INIT_START_NODE = {
   rowIdx: 9,
   colIdx: 4,
+  isWall: false,
+  isStart: true,
+  isTarget: false,
+  distance: Infinity,
 };
-const TARGET_POSITION = {
+
+const INIT_TARGET_NODE = {
   rowIdx: 9,
   colIdx: 35,
+  isWall: false,
+  isStart: false,
+  isTarget: true,
+  distance: Infinity,
 };
 
 const SContainer = styled.div`
@@ -26,8 +35,10 @@ const SGrid = styled.table`
 `;
 
 const App = () => {
+  const [startNode, setStartNode] = React.useState(INIT_START_NODE);
+  const [targetNode, setTargetNode] = React.useState(INIT_TARGET_NODE);
   const [grid, setGrid] = React.useState(
-    getInitialGrid(40, 20, START_POSITION, TARGET_POSITION)
+    getInitialGrid(40, 20, startNode, targetNode)
   );
   const [mouseDown, setMouseDown] = React.useState(false);
   const [movingStart, setMovingStart] = React.useState(false);
@@ -153,6 +164,7 @@ const createNode = (
     isStart: rowIdx === startPosition.rowIdx && colIdx === startPosition.colIdx,
     isTarget:
       rowIdx === targetPosition.rowIdx && colIdx === targetPosition.colIdx,
+    distance: Infinity,
   };
 };
 
