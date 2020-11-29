@@ -5,6 +5,7 @@ interface IStyleProps {
   isWall: boolean;
   isStart: boolean;
   isTarget: boolean;
+  isPath: boolean;
 }
 
 interface IProps extends IStyleProps {
@@ -45,6 +46,7 @@ const SNode = styled.td<IStyleProps>`
 
   ${(props) =>
     (props.isStart && startNode) ||
+    (props.isPath && startNode) ||
     (props.isTarget && targetNode) ||
     (props.isWall && wallNode)}
 `;
@@ -56,6 +58,7 @@ const Node = ({
   isWall,
   isStart,
   isTarget,
+  isPath,
 }: IProps) => {
   return (
     <SNode
@@ -65,6 +68,7 @@ const Node = ({
       isWall={isWall}
       isStart={isStart}
       isTarget={isTarget}
+      isPath={isPath}
     />
   );
 };

@@ -3,13 +3,20 @@ import styled from "styled-components";
 
 import Node from "./components/Node";
 
+const GRID_COLS = 40;
+const GRID_ROWS = 20;
+
 const INIT_START_NODE = {
   rowIdx: 9,
   colIdx: 4,
   isWall: false,
   isStart: true,
   isTarget: false,
-  distance: Infinity,
+  g: 0,
+  h: 0,
+  f: 0,
+  parent: undefined,
+  isPath: false,
 };
 
 const INIT_TARGET_NODE = {
@@ -18,7 +25,11 @@ const INIT_TARGET_NODE = {
   isWall: false,
   isStart: false,
   isTarget: true,
-  distance: Infinity,
+  g: 0,
+  h: 0,
+  f: 0,
+  parent: undefined,
+  isPath: false,
 };
 
 const SContainer = styled.div`
@@ -29,9 +40,15 @@ const SContainer = styled.div`
   padding: 30px;
 `;
 
+const SButtonWrapper = styled.div`
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+`;
+
 const SButton = styled.button`
   width: 100px;
-  margin-bottom: 50px;
 `;
 
 const SGrid = styled.table`
@@ -45,7 +62,7 @@ const App = () => {
   const [startNode, setStartNode] = React.useState(INIT_START_NODE);
   const [targetNode, setTargetNode] = React.useState(INIT_TARGET_NODE);
   const [grid, setGrid] = React.useState(
-    getInitialGrid(40, 20, startNode, targetNode)
+    getInitialGrid(GRID_COLS, GRID_ROWS, INIT_START_NODE, INIT_TARGET_NODE)
   );
   const [mouseDown, setMouseDown] = React.useState(false);
   const [movingStart, setMovingStart] = React.useState(false);
@@ -142,6 +159,7 @@ const App = () => {
                   isWall={node.isWall}
                   isStart={node.isStart}
                   isTarget={node.isTarget}
+                  isPath={node.isPath}
                 />
               ))}
             </tr>
@@ -182,7 +200,11 @@ const createNode = (
     isStart: rowIdx === startPosition.rowIdx && colIdx === startPosition.colIdx,
     isTarget:
       rowIdx === targetPosition.rowIdx && colIdx === targetPosition.colIdx,
-    distance: Infinity,
+    g: 0,
+    h: 0,
+    f: 0,
+    parent: undefined,
+    isPath: false,
   };
 };
 
