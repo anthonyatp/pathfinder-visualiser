@@ -71,6 +71,8 @@ const App = () => {
           for (const node of row) {
             if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
               node.isStart = true;
+              node.isWall = false;
+              setStartNode(node);
             } else {
               node.isStart = false;
             }
@@ -83,6 +85,8 @@ const App = () => {
           for (const node of row) {
             if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
               node.isTarget = true;
+              node.isWall = false;
+              setTargetNode(node);
             } else {
               node.isTarget = false;
             }
@@ -90,10 +94,12 @@ const App = () => {
         }
         setGrid(newGrid);
       } else {
-        const newGrid = [...grid];
-        newGrid[rowIdx][colIdx].isWall = !newGrid[rowIdx][colIdx].isWall;
+        if (startNode.rowIdx !== rowIdx || targetNode.rowIdx !== rowIdx) {
+          const newGrid = [...grid];
+          newGrid[rowIdx][colIdx].isWall = !newGrid[rowIdx][colIdx].isWall;
 
-        setGrid(newGrid);
+          setGrid(newGrid);
+        }
       }
     }
   };
