@@ -23,13 +23,20 @@ const INIT_TARGET_NODE = {
 
 const SContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding: 30px;
+`;
+
+const SButton = styled.button`
+  width: 100px;
+  margin-bottom: 50px;
 `;
 
 const SGrid = styled.table`
   border-collapse: separate;
   border-spacing: 0px;
-  margin: 30px;
   border-left: 1px solid grey;
   border-top: 1px solid grey;
 `;
@@ -112,29 +119,34 @@ const App = () => {
 
   return (
     <SContainer>
+      <SButton>Visualise A*</SButton>
       <SGrid>
-        {grid.map((row, rowIdx) => (
-          <tr key={rowIdx}>
-            {row.map((node, nodeIdx) => (
-              <Node
-                key={nodeIdx}
-                onMouseDown={() =>
-                  handleMouseDown(
-                    node.rowIdx,
-                    node.colIdx,
-                    node.isStart,
-                    node.isTarget
-                  )
-                }
-                onMouseEnter={() => handleMouseEnter(node.rowIdx, node.colIdx)}
-                onMouseUp={handleMouseUp}
-                isWall={node.isWall}
-                isStart={node.isStart}
-                isTarget={node.isTarget}
-              />
-            ))}
-          </tr>
-        ))}
+        <tbody>
+          {grid.map((row, rowIdx) => (
+            <tr key={rowIdx}>
+              {row.map((node, nodeIdx) => (
+                <Node
+                  key={nodeIdx}
+                  onMouseDown={() =>
+                    handleMouseDown(
+                      node.rowIdx,
+                      node.colIdx,
+                      node.isStart,
+                      node.isTarget
+                    )
+                  }
+                  onMouseEnter={() =>
+                    handleMouseEnter(node.rowIdx, node.colIdx)
+                  }
+                  onMouseUp={handleMouseUp}
+                  isWall={node.isWall}
+                  isStart={node.isStart}
+                  isTarget={node.isTarget}
+                />
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </SGrid>
     </SContainer>
   );
