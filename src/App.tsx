@@ -3,30 +3,31 @@ import styled from "styled-components";
 
 import Node from "./components/Node";
 
-const START_NODE_ROW = 9;
-const START_NODE_COL = 4;
-const TARGET_NODE_ROW = 9;
-const TARGET_NODE_COL = 35;
+const START_POSITION = {
+  rowIdx: 9,
+  colIdx: 4,
+};
+const TARGET_POSITION = {
+  rowIdx: 9,
+  colIdx: 35,
+};
+
+const SContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const SGrid = styled.table`
   border-collapse: separate;
   border-spacing: 0px;
-  margin: 5rem;
+  margin: 30px;
   border-left: 1px solid grey;
   border-top: 1px solid grey;
 `;
 
 const App = () => {
-  const [startPostion, setStartPosition] = React.useState({
-    rowIdx: START_NODE_ROW,
-    colIdx: START_NODE_COL,
-  });
-  const [targetPostion, setTargetPosition] = React.useState({
-    rowIdx: TARGET_NODE_ROW,
-    colIdx: TARGET_NODE_COL,
-  });
   const [grid, setGrid] = React.useState(
-    getInitialGrid(40, 20, startPostion, targetPostion)
+    getInitialGrid(40, 20, START_POSITION, TARGET_POSITION)
   );
   const [mouseDown, setMouseDown] = React.useState(false);
   const [movingStart, setMovingStart] = React.useState(false);
@@ -93,30 +94,32 @@ const App = () => {
   };
 
   return (
-    <SGrid>
-      {grid.map((row, rowIdx) => (
-        <tr key={rowIdx}>
-          {row.map((node, nodeIdx) => (
-            <Node
-              key={nodeIdx}
-              onMouseDown={() =>
-                handleMouseDown(
-                  node.rowIdx,
-                  node.colIdx,
-                  node.isStart,
-                  node.isTarget
-                )
-              }
-              onMouseEnter={() => handleMouseEnter(node.rowIdx, node.colIdx)}
-              onMouseUp={handleMouseUp}
-              isWall={node.isWall}
-              isStart={node.isStart}
-              isTarget={node.isTarget}
-            />
-          ))}
-        </tr>
-      ))}
-    </SGrid>
+    <SContainer>
+      <SGrid>
+        {grid.map((row, rowIdx) => (
+          <tr key={rowIdx}>
+            {row.map((node, nodeIdx) => (
+              <Node
+                key={nodeIdx}
+                onMouseDown={() =>
+                  handleMouseDown(
+                    node.rowIdx,
+                    node.colIdx,
+                    node.isStart,
+                    node.isTarget
+                  )
+                }
+                onMouseEnter={() => handleMouseEnter(node.rowIdx, node.colIdx)}
+                onMouseUp={handleMouseUp}
+                isWall={node.isWall}
+                isStart={node.isStart}
+                isTarget={node.isTarget}
+              />
+            ))}
+          </tr>
+        ))}
+      </SGrid>
+    </SContainer>
   );
 };
 
