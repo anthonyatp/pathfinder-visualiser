@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import aStar from "./algorithms/aStar";
 import Node from "./components/Node";
 
 const GRID_COLS = 40;
@@ -134,9 +135,31 @@ const App = () => {
     setMovingTarget(false);
   };
 
+  const handleAStar = () => {
+    const path = aStar(grid, startNode, targetNode);
+    const newGrid = [...grid];
+    if (path) {
+      for (const node of path) {
+        newGrid[node.rowIdx][node.colIdx].isPath = true;
+      }
+      setGrid(newGrid);
+    }
+  };
+
+  const handleResetGrid = () => {
+    setStartNode(INIT_START_NODE);
+    setTargetNode(INIT_TARGET_NODE);
+    setGrid(
+      getInitialGrid(GRID_COLS, GRID_ROWS, INIT_START_NODE, INIT_TARGET_NODE)
+    );
+  };
+
   return (
     <SContainer>
-      <SButton>Visualise A*</SButton>
+      <SButtonWrapper>
+        <SButton onClick={handleAStar}>Visualise A*</SButton>
+        <SButton onClick={handleResetGrid}>Reset Grid</SButton>
+      </SButtonWrapper>
       <SGrid>
         <tbody>
           {grid.map((row, rowIdx) => (

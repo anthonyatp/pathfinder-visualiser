@@ -41,8 +41,8 @@ const SNode = styled.td<IStyleProps>`
   border-right: 1px solid grey;
   border-bottom: 1px solid grey;
   display: inline-block;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
 
   ${(props) =>
     (props.isStart && startNode) ||
