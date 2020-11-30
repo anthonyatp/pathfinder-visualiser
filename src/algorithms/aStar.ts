@@ -39,10 +39,8 @@ const aStar = (grid: INode[][], startNode: INode, targetNode: INode) => {
         path.push(current);
         current = current.parent;
       }
-      // tslint:disable-next-line
-      console.log(path);
 
-      return path.reverse();
+      return { path: path.reverse(), closedNodes };
     }
 
     const moves = [
@@ -89,8 +87,6 @@ const aStar = (grid: INode[][], startNode: INode, targetNode: INode) => {
             grid[newRowIdx - 1][newColIdx].isWall &&
             grid[newRowIdx][newColIdx + 1].isWall)
         ) {
-          // tslint:disable-next-line
-          console.log("illegal");
           continue;
         } else {
           neighbours.push(grid[newRowIdx][newColIdx]);
@@ -132,7 +128,7 @@ const aStar = (grid: INode[][], startNode: INode, targetNode: INode) => {
     }
   }
 
-  return;
+  return { path: undefined, openNodes: undefined };
 };
 
 export default aStar;
