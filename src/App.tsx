@@ -70,6 +70,8 @@ const App = () => {
   const [mouseDown, setMouseDown] = React.useState(false);
   const [movingStart, setMovingStart] = React.useState(false);
   const [movingTarget, setMovingTarget] = React.useState(false);
+  const [noValidPath, setNoValidPath] = React.useState(false);
+  const [aStarPath, setAStarPath] = React.useState(false);
 
   const handleMouseDown = (
     rowIdx: number,
@@ -140,14 +142,30 @@ const App = () => {
     setMovingTarget(false);
   };
 
-  const handleAStar = () => {
-    const path = aStar(grid, startNode, targetNode);
-    const newGrid = [...grid];
-    if (path) {
+  const timer = (delay: number) => {
+    return new Promise((resolve) => setTimeout(resolve, delay));
+  };
+
+  const handleAStar = async () => {
+    const { path, closedNodes } = aStar(grid, startNode, targetNode);
+    if (path && closedNodes) {
+      setAStarPath(true);
+      setNoValidPath(false);
+      const newGrid = grid;
+
+      for (const closedNode of closedNodes) {
+        newGrid[closedNode.rowIdx][closedNode.colIdx].isVisited = true;
+        setGrid([...newGrid]);
+        await timer(10);
+      }
+
       for (const node of path) {
         newGrid[node.rowIdx][node.colIdx].isPath = true;
+        setGrid([...newGrid]);
+        await timer(3);
       }
-      setGrid(newGrid);
+    } else {
+      setNoValidPath(true);
     }
   };
 
@@ -157,12 +175,16 @@ const App = () => {
     setGrid(
       getInitialGrid(GRID_COLS, GRID_ROWS, INIT_START_NODE, INIT_TARGET_NODE)
     );
+    setNoValidPath(false);
+    setAStarPath(false);
   };
 
   return (
     <SContainer>
       <SButtonWrapper>
-        <SButton onClick={handleAStar}>Visualise A*</SButton>
+        <SButton disabled={aStarPath} onClick={handleAStar}>
+          Visualise A*
+        </SButton>
         <SButton onClick={handleResetGrid}>Reset Grid</SButton>
       </SButtonWrapper>
       <SGrid>
@@ -195,6 +217,7 @@ const App = () => {
           ))}
         </tbody>
       </SGrid>
+      {noValidPath && <p>No valid path found</p>}
     </SContainer>
   );
 };
