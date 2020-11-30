@@ -128,7 +128,7 @@ const App = () => {
           !(targetNode.rowIdx === rowIdx && targetNode.colIdx === colIdx)
         ) {
           const newGrid = grid;
-          newGrid[rowIdx][colIdx].isWall = !newGrid[rowIdx][colIdx].isWall;
+          newGrid[rowIdx][colIdx].isWall = true;
 
           setGrid([...newGrid]);
         }
