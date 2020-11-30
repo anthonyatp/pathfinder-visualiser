@@ -93,7 +93,7 @@ const App = () => {
   const handleMouseEnter = (rowIdx: number, colIdx: number) => {
     if (mouseDown) {
       if (movingStart) {
-        const newGrid = [...grid];
+        const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
             if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
@@ -105,9 +105,9 @@ const App = () => {
             }
           }
         }
-        setGrid(newGrid);
+        setGrid([...newGrid]);
       } else if (movingTarget) {
-        const newGrid = [...grid];
+        const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
             if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
@@ -119,13 +119,16 @@ const App = () => {
             }
           }
         }
-        setGrid(newGrid);
+        setGrid([...newGrid]);
       } else {
-        if (startNode.rowIdx !== rowIdx || targetNode.rowIdx !== rowIdx) {
-          const newGrid = [...grid];
+        if (
+          !(startNode.rowIdx === rowIdx && startNode.colIdx === colIdx) ||
+          !(targetNode.rowIdx === rowIdx && targetNode.colIdx === colIdx)
+        ) {
+          const newGrid = grid;
           newGrid[rowIdx][colIdx].isWall = !newGrid[rowIdx][colIdx].isWall;
 
-          setGrid(newGrid);
+          setGrid([...newGrid]);
         }
       }
     }
