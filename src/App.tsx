@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import aStar from "./algorithms/aStar";
-import Node from "./components/Node";
+import Node, { BORDER_COLOR } from "./components/Node";
 
 const GRID_COLS = 40;
 const GRID_ROWS = 20;
@@ -57,8 +57,8 @@ const SButton = styled.button`
 const SGrid = styled.table`
   border-collapse: separate;
   border-spacing: 0px;
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
+  border-left: 1px solid ${BORDER_COLOR};
+  border-top: 1px solid ${BORDER_COLOR};
 `;
 
 const App = () => {

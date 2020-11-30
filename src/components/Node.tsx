@@ -15,6 +15,7 @@ interface IProps extends IStyleProps {
   onMouseUp: () => void;
 }
 
+export const BORDER_COLOR = "#C1C1C1";
 const WALL_COLOR = "#34495e";
 const START_COLOR = "green";
 const TARGET_COLOR = "red";
@@ -40,12 +41,43 @@ const targetNode = css`
 
 const visitedNode = css`
   background-color: ${VISITED_COLOR};
+
+  animation-name: visitedAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
+  @keyframes visitedAnimation {
+    0% {
+      transform: scale(0.3);
+      background-color: rgba(0, 0, 66, 0.75);
+      border-radius: 100%;
+    }
+
+    50% {
+      background-color: rgba(17, 104, 217, 0.75);
+    }
+
+    75% {
+      transform: scale(1.2);
+      background-color: rgba(0, 217, 159, 0.75);
+    }
+
+    100% {
+      transform: scale(1);
+      background-color: ${VISITED_COLOR};
+    }
+  }
 `;
 
 const SNode = styled.td<IStyleProps>`
   background-color: white;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border-right: 1px solid ${BORDER_COLOR};
+  border-bottom: 1px solid ${BORDER_COLOR};
   display: inline-block;
   height: 20px;
   width: 20px;
