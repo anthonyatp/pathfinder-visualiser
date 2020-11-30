@@ -18,6 +18,7 @@ const INIT_START_NODE = {
   f: 0,
   parent: undefined,
   isPath: false,
+  isVisited: false,
 };
 
 const INIT_TARGET_NODE = {
@@ -31,6 +32,7 @@ const INIT_TARGET_NODE = {
   f: 0,
   parent: undefined,
   isPath: false,
+  isVisited: false,
 };
 
 const SContainer = styled.div`
@@ -183,6 +185,7 @@ const App = () => {
                   isStart={node.isStart}
                   isTarget={node.isTarget}
                   isPath={node.isPath}
+                  isVisited={node.isVisited}
                 />
               ))}
             </tr>
@@ -228,6 +231,7 @@ const createNode = (
     f: 0,
     parent: undefined,
     isPath: false,
+    isVisited: false,
   };
 };
 

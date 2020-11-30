@@ -6,6 +6,7 @@ interface IStyleProps {
   isStart: boolean;
   isTarget: boolean;
   isPath: boolean;
+  isVisited: boolean;
 }
 
 interface IProps extends IStyleProps {
@@ -17,6 +18,7 @@ interface IProps extends IStyleProps {
 const WALL_COLOR = "#34495e";
 const START_COLOR = "green";
 const TARGET_COLOR = "red";
+const VISITED_COLOR = "yellow";
 
 const wallNode = css`
   background-color: ${WALL_COLOR};
@@ -36,6 +38,10 @@ const targetNode = css`
   border-bottom: 1px solid ${TARGET_COLOR};
 `;
 
+const visitedNode = css`
+  background-color: ${VISITED_COLOR};
+`;
+
 const SNode = styled.td<IStyleProps>`
   background-color: white;
   border-right: 1px solid grey;
@@ -47,6 +53,7 @@ const SNode = styled.td<IStyleProps>`
   ${(props) =>
     (props.isStart && startNode) ||
     (props.isPath && startNode) ||
+    (props.isVisited && visitedNode) ||
     (props.isTarget && targetNode) ||
     (props.isWall && wallNode)}
 `;
@@ -59,6 +66,7 @@ const Node = ({
   isStart,
   isTarget,
   isPath,
+  isVisited,
 }: IProps) => {
   return (
     <SNode
@@ -69,6 +77,7 @@ const Node = ({
       isStart={isStart}
       isTarget={isTarget}
       isPath={isPath}
+      isVisited={isVisited}
     />
   );
 };
