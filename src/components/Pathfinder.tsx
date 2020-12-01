@@ -42,7 +42,7 @@ const SButtonWrapper = styled.div`
   margin-bottom: 30px;
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 800px;
 `;
 
 const SGrid = styled.table`
