@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import aStar from "../algorithms/aStar";
+import randomMaze from "../algorithms/randomMaze";
 import Button from "./Button";
 import Node, { BORDER_COLOR } from "./Node";
 
@@ -168,6 +169,18 @@ const Pathfinder = () => {
     }
   };
 
+  const handleRandomMaze = async () => {
+    setAnimating(true);
+    const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
+    const newGrid = grid;
+    for (const wall of walls) {
+      newGrid[wall[0]][wall[1]].isWall = true;
+      setGrid([...newGrid]);
+      await timer(0.5);
+    }
+    setAnimating(false);
+  };
+
   const handleResetGrid = () => {
     setStartNode(INIT_START_NODE);
     setTargetNode(INIT_TARGET_NODE);
@@ -181,6 +194,9 @@ const Pathfinder = () => {
   return (
     <>
       <SButtonWrapper>
+        <Button disabled={animating} onClick={handleRandomMaze}>
+          Generate Random Maze
+        </Button>
         <Button disabled={animating} onClick={handleAStar}>
           Visualise A* Algorithm
         </Button>
