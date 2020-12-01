@@ -1,14 +1,4 @@
-interface INode {
-  rowIdx: number;
-  colIdx: number;
-  isWall: boolean;
-  isStart: boolean;
-  isTarget: boolean;
-  g: number;
-  h: number;
-  f: number;
-  parent?: INode;
-}
+import { INode } from "../types";
 
 const randomMaze = (
   startNode: INode,

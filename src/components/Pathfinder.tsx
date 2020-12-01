@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import aStar from "../algorithms/aStar";
 import randomMaze from "../algorithms/randomMaze";
+import { INode } from "../types";
 import Button from "./Button";
 import Node, { BORDER_COLOR } from "./Node";
 
@@ -52,16 +53,16 @@ const SGrid = styled.table`
 `;
 
 const Pathfinder = () => {
-  const [startNode, setStartNode] = React.useState(INIT_START_NODE);
-  const [targetNode, setTargetNode] = React.useState(INIT_TARGET_NODE);
-  const [grid, setGrid] = React.useState(
+  const [startNode, setStartNode] = React.useState<INode>(INIT_START_NODE);
+  const [targetNode, setTargetNode] = React.useState<INode>(INIT_TARGET_NODE);
+  const [grid, setGrid] = React.useState<INode[][]>(
     getInitialGrid(GRID_COLS, GRID_ROWS, INIT_START_NODE, INIT_TARGET_NODE)
   );
-  const [mouseDown, setMouseDown] = React.useState(false);
-  const [movingStart, setMovingStart] = React.useState(false);
-  const [movingTarget, setMovingTarget] = React.useState(false);
-  const [noValidPath, setNoValidPath] = React.useState(false);
-  const [animating, setAnimating] = React.useState(false);
+  const [mouseDown, setMouseDown] = React.useState<boolean>(false);
+  const [movingStart, setMovingStart] = React.useState<boolean>(false);
+  const [movingTarget, setMovingTarget] = React.useState<boolean>(false);
+  const [noValidPath, setNoValidPath] = React.useState<boolean>(false);
+  const [animating, setAnimating] = React.useState<boolean>(false);
 
   const handleMouseDown = (
     rowIdx: number,
