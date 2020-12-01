@@ -81,18 +81,25 @@ const Pathfinder = () => {
     setMouseDown(true);
   };
 
-  const handleMouseEnter = (rowIdx: number, colIdx: number) => {
+  const handleMouseEnter = (
+    rowIdx: number,
+    colIdx: number,
+    start: boolean,
+    target: boolean
+  ) => {
     if (mouseDown) {
       if (movingStart) {
         const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
-            if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
-              node.isStart = true;
-              node.isWall = false;
-              setStartNode(node);
-            } else {
-              node.isStart = false;
+            if (!target) {
+              if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
+                node.isStart = true;
+                node.isWall = false;
+                setStartNode(node);
+              } else {
+                node.isStart = false;
+              }
             }
           }
         }
@@ -101,12 +108,14 @@ const Pathfinder = () => {
         const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
-            if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
-              node.isTarget = true;
-              node.isWall = false;
-              setTargetNode(node);
-            } else {
-              node.isTarget = false;
+            if (!start) {
+              if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
+                node.isTarget = true;
+                node.isWall = false;
+                setTargetNode(node);
+              } else {
+                node.isTarget = false;
+              }
             }
           }
         }
@@ -192,7 +201,12 @@ const Pathfinder = () => {
                     )
                   }
                   onMouseEnter={() =>
-                    handleMouseEnter(node.rowIdx, node.colIdx)
+                    handleMouseEnter(
+                      node.rowIdx,
+                      node.colIdx,
+                      node.isStart,
+                      node.isTarget
+                    )
                   }
                   onMouseUp={handleMouseUp}
                   isWall={node.isWall}
