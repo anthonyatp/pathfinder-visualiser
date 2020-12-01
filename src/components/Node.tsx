@@ -1,6 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import Start from "./svg/Start";
+import Target from "./svg/Target";
+
 interface IStyleProps {
   isWall: boolean;
   isStart: boolean;
@@ -78,9 +81,11 @@ const SNode = styled.td<IStyleProps>`
   background-color: white;
   border-right: 1px solid ${BORDER_COLOR};
   border-bottom: 1px solid ${BORDER_COLOR};
-  display: inline-block;
   height: 20px;
   width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   ${(props) =>
     (props.isStart && startNode) ||
@@ -110,7 +115,10 @@ const Node = ({
       isTarget={isTarget}
       isPath={isPath}
       isVisited={isVisited}
-    />
+    >
+      {isTarget && <Target fill="#ffffff" />}
+      {isStart && <Start fill="#ffffff" />}
+    </SNode>
   );
 };
 
