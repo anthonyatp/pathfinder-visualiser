@@ -10,7 +10,12 @@ interface INode {
   parent?: INode;
 }
 
-const aStar = (grid: INode[][], startNode: INode, targetNode: INode) => {
+const aStar = (
+  grid: INode[][],
+  startNode: INode,
+  targetNode: INode,
+  diagonal = false
+) => {
   const openNodes: INode[] = [startNode];
   const closedNodes: INode[] = [];
 
@@ -43,16 +48,23 @@ const aStar = (grid: INode[][], startNode: INode, targetNode: INode) => {
       return { path: path.reverse(), closedNodes };
     }
 
-    const moves = [
-      [-1, -1],
-      [-1, 0],
-      [-1, 1],
-      [0, 1],
-      [1, 1],
-      [1, 0],
-      [1, -1],
-      [0, -1],
-    ];
+    const moves = diagonal
+      ? [
+          [-1, -1],
+          [-1, 0],
+          [-1, 1],
+          [0, 1],
+          [1, 1],
+          [1, 0],
+          [1, -1],
+          [0, -1],
+        ]
+      : [
+          [-1, 0],
+          [0, 1],
+          [1, 0],
+          [0, -1],
+        ];
 
     // Generate neighbours
     const neighbours = [];
