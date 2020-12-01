@@ -169,6 +169,7 @@ const Pathfinder = () => {
   };
 
   const handleRandomMaze = async () => {
+    setNoValidPath(false);
     setAnimating(true);
     const newGrid = clearGrid(grid, true);
     const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
