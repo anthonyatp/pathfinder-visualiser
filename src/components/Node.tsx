@@ -16,6 +16,7 @@ interface IProps extends IStyleProps {
   onMouseDown: () => void;
   onMouseEnter: () => void;
   onMouseUp: () => void;
+  disabled: boolean;
 }
 
 export const BORDER_COLOR = "#C1C1C1";
@@ -125,6 +126,7 @@ const Node = ({
   onMouseDown,
   onMouseEnter,
   onMouseUp,
+  disabled,
   isWall,
   isStart,
   isTarget,
@@ -133,9 +135,27 @@ const Node = ({
 }: IProps) => {
   return (
     <SNode
-      onMouseDown={onMouseDown}
-      onMouseEnter={onMouseEnter}
-      onMouseUp={onMouseUp}
+      onMouseDown={
+        disabled
+          ? () => {
+              return;
+            }
+          : onMouseDown
+      }
+      onMouseEnter={
+        disabled
+          ? () => {
+              return;
+            }
+          : onMouseEnter
+      }
+      onMouseUp={
+        disabled
+          ? () => {
+              return;
+            }
+          : onMouseUp
+      }
       isWall={isWall}
       isStart={isStart}
       isTarget={isTarget}

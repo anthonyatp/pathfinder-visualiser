@@ -60,7 +60,7 @@ const Pathfinder = () => {
   const [movingStart, setMovingStart] = React.useState(false);
   const [movingTarget, setMovingTarget] = React.useState(false);
   const [noValidPath, setNoValidPath] = React.useState(false);
-  const [aStarPath, setAStarPath] = React.useState(false);
+  const [animating, setAnimating] = React.useState(false);
 
   const handleMouseDown = (
     rowIdx: number,
@@ -147,7 +147,7 @@ const Pathfinder = () => {
   const handleAStar = async () => {
     const { path, closedNodes } = aStar(grid, startNode, targetNode);
     if (path && closedNodes) {
-      setAStarPath(true);
+      setAnimating(true);
       setNoValidPath(false);
       const newGrid = grid;
 
@@ -162,6 +162,7 @@ const Pathfinder = () => {
         setGrid([...newGrid]);
         await timer(3);
       }
+      setAnimating(false);
     } else {
       setNoValidPath(true);
     }
@@ -174,16 +175,18 @@ const Pathfinder = () => {
       getInitialGrid(GRID_COLS, GRID_ROWS, INIT_START_NODE, INIT_TARGET_NODE)
     );
     setNoValidPath(false);
-    setAStarPath(false);
+    setAnimating(false);
   };
 
   return (
     <>
       <SButtonWrapper>
-        <Button disabled={aStarPath} onClick={handleAStar}>
+        <Button disabled={animating} onClick={handleAStar}>
           Visualise A* Algorithm
         </Button>
-        <Button onClick={handleResetGrid}>Reset Grid</Button>
+        <Button disabled={animating} onClick={handleResetGrid}>
+          Reset Grid
+        </Button>
       </SButtonWrapper>
       <SGrid>
         <tbody>
@@ -209,6 +212,7 @@ const Pathfinder = () => {
                     )
                   }
                   onMouseUp={handleMouseUp}
+                  disabled={animating}
                   isWall={node.isWall}
                   isStart={node.isStart}
                   isTarget={node.isTarget}
