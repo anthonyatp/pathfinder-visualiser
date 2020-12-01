@@ -75,10 +75,10 @@ const Pathfinder = () => {
     } else if (target) {
       setMovingTarget(true);
     } else {
-      const newGrid = [...grid];
+      const newGrid = clearGrid(grid, false);
       newGrid[rowIdx][colIdx].isWall = !newGrid[rowIdx][colIdx].isWall;
 
-      setGrid(newGrid);
+      setGrid([...newGrid]);
     }
     setMouseDown(true);
   };
@@ -90,8 +90,8 @@ const Pathfinder = () => {
     target: boolean
   ) => {
     if (mouseDown) {
+      const newGrid = clearGrid(grid, false);
       if (movingStart) {
-        const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
             if (!target) {
@@ -107,7 +107,6 @@ const Pathfinder = () => {
         }
         setGrid([...newGrid]);
       } else if (movingTarget) {
-        const newGrid = grid;
         for (const row of newGrid) {
           for (const node of row) {
             if (!start) {
@@ -127,7 +126,6 @@ const Pathfinder = () => {
           !(startNode.rowIdx === rowIdx && startNode.colIdx === colIdx) ||
           !(targetNode.rowIdx === rowIdx && targetNode.colIdx === colIdx)
         ) {
-          const newGrid = grid;
           newGrid[rowIdx][colIdx].isWall = true;
 
           setGrid([...newGrid]);
@@ -151,7 +149,7 @@ const Pathfinder = () => {
     if (path && closedNodes) {
       setAnimating(true);
       setNoValidPath(false);
-      const newGrid = grid;
+      const newGrid = clearGrid(grid, false);
 
       for (const closedNode of closedNodes) {
         newGrid[closedNode.rowIdx][closedNode.colIdx].isVisited = true;
@@ -172,8 +170,8 @@ const Pathfinder = () => {
 
   const handleRandomMaze = async () => {
     setAnimating(true);
+    const newGrid = clearGrid(grid, true);
     const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
-    const newGrid = grid;
     for (const wall of walls) {
       newGrid[wall[0]][wall[1]].isWall = true;
       setGrid([...newGrid]);
@@ -283,6 +281,21 @@ const createNode = (
     isPath: false,
     isVisited: false,
   };
+};
+
+const clearGrid = (grid: INode[][], includeWalls: boolean) => {
+  const newGrid = grid;
+  for (const row of newGrid) {
+    for (const node of row) {
+      if (includeWalls && node.isWall) {
+        newGrid[node.rowIdx][node.colIdx].isWall = false;
+      }
+      newGrid[node.rowIdx][node.colIdx].isPath = false;
+      newGrid[node.rowIdx][node.colIdx].isVisited = false;
+    }
+  }
+
+  return newGrid;
 };
 
 export default Pathfinder;
