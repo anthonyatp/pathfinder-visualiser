@@ -5,7 +5,7 @@ import aStar from "../algorithms/aStar";
 import randomMaze from "../algorithms/randomMaze";
 import { INode } from "../types";
 import Button from "./Button";
-import Node, { BORDER_COLOR } from "./Node";
+import Node from "./Node";
 
 const GRID_COLS = 40;
 const GRID_ROWS = 20;
@@ -48,8 +48,8 @@ const SButtonWrapper = styled.div`
 const SGrid = styled.table`
   border-collapse: separate;
   border-spacing: 0px;
-  border-left: 1px solid ${BORDER_COLOR};
-  border-top: 1px solid ${BORDER_COLOR};
+  border-left: 1px solid #c1c1c1;
+  border-top: 1px solid #c1c1c1;
 `;
 
 const Pathfinder = () => {
@@ -210,7 +210,7 @@ const Pathfinder = () => {
             <tr key={rowIdx}>
               {row.map((node, nodeIdx) => (
                 <Node
-                  key={nodeIdx}
+                  key={`${rowIdx}${nodeIdx}`}
                   onMouseDown={() =>
                     handleMouseDown(
                       node.rowIdx,
