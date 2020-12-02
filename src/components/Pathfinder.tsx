@@ -176,7 +176,7 @@ const Pathfinder = () => {
     for (const wall of walls) {
       newGrid[wall[0]][wall[1]].isWall = true;
       setGrid([...newGrid]);
-      await timer(0.5);
+      await timer(1);
     }
     setAnimating(false);
   };
