@@ -39,6 +39,43 @@
   justify-content: center;
 }
 
+.node-path {
+  background-color: var(--start-color);
+  border-right: 1px solid var(--start-color);
+  border-bottom: 1px solid var(--start-color);
+  height: 20px;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  animation-name: pathAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes pathAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: yellow;
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: greenyellow;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: var(--start-color);
+  }
+}
+
 .node-wall {
   background-color: var(--wall-color);
   border-right: 1px solid var(--wall-color);

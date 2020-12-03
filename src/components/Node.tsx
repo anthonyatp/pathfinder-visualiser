@@ -28,8 +28,10 @@ const Node = ({
   isVisited,
 }: IProps) => {
   let className = "node";
-  if (isStart || isPath) {
+  if (isStart) {
     className = "node-start";
+  } else if (isPath) {
+    className = "node-path";
   } else if (isVisited) {
     className = "node-visited";
   } else if (isTarget) {
