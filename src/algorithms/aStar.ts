@@ -68,7 +68,8 @@ const aStar = (
         newRowIdx < grid.length &&
         newColIdx > -1 &&
         newColIdx < grid[0].length &&
-        !grid[newRowIdx][newColIdx].isWall
+        (!grid[newRowIdx][newColIdx].isWall ||
+          grid[newRowIdx][newColIdx].isTarget)
       ) {
         // ensure legal move (i.e. no diagonal through walls)
         if (

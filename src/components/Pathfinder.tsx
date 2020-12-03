@@ -97,7 +97,6 @@ const Pathfinder = () => {
             if (!target) {
               if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
                 node.isStart = true;
-                node.isWall = false;
                 setStartNode(node);
               } else {
                 node.isStart = false;
@@ -112,7 +111,6 @@ const Pathfinder = () => {
             if (!start) {
               if (node.rowIdx === rowIdx && node.colIdx === colIdx) {
                 node.isTarget = true;
-                node.isWall = false;
                 setTargetNode(node);
               } else {
                 node.isTarget = false;
