@@ -6,11 +6,11 @@ interface IStyleProps {
 }
 
 const SButton = styled.button<IStyleProps>`
-  color: ${props => props.disabled ? "#c0abff" : "#5627df"};
+  color: ${(props) => (props.disabled ? "#c0abff" : "#5627df")};
   background-color: #f5f0ff;
   border-radius: 10px;
   border: none;
-  cursor: ${props => props.disabled ? "unset" : "pointer" };
+  cursor: ${(props) => (props.disabled ? "unset" : "pointer")};
   padding: 10px 20px 10px 20px;
 
   :focus {
