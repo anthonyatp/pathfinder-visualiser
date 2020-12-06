@@ -173,10 +173,14 @@ const Pathfinder = () => {
     setAnimating(true);
     const newGrid = clearGrid(grid, true);
     const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
+    let count = 1;
     for (const wall of walls) {
+      count += 1;
       newGrid[wall[0]][wall[1]].isWall = true;
-      setGrid([...newGrid]);
-      await timer(1);
+      if (count % 2 === 0 || count === walls.length) {
+        setGrid([...newGrid]);
+        await timer(1);
+      }
     }
     setAnimating(false);
   };
