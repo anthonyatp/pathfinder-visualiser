@@ -11,14 +11,10 @@ const SContainer = styled.div`
   padding: 30px;
 `;
 
-const SHeader = styled.h1`
-`
-
 const App = () => {
-
   return (
     <SContainer>
-      <SHeader>Pathfinder Visualiser</SHeader>
+      <h1>Pathfinder Visualiser</h1>
       <Pathfinder />
     </SContainer>
   );
