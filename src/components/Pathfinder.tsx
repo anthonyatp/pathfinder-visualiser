@@ -3,16 +3,17 @@ import styled from "styled-components";
 
 import aStar from "../algorithms/aStar";
 import randomMaze from "../algorithms/randomMaze";
+import recursiveMaze, { walls } from "../algorithms/recursiveMaze";
 import { INode } from "../types";
 import Button from "./Button";
 import Node from "./Node";
 
-const GRID_COLS = 40;
-const GRID_ROWS = 20;
+const GRID_COLS = 41;
+const GRID_ROWS = 21;
 
 const INIT_START_NODE = {
   rowIdx: 9,
-  colIdx: 4,
+  colIdx: 3,
   isWall: false,
   isStart: true,
   isTarget: false,
@@ -26,7 +27,7 @@ const INIT_START_NODE = {
 
 const INIT_TARGET_NODE = {
   rowIdx: 9,
-  colIdx: 35,
+  colIdx: 36,
   isWall: false,
   isStart: false,
   isTarget: true,
@@ -63,6 +64,7 @@ const Pathfinder = () => {
   const [movingTarget, setMovingTarget] = React.useState<boolean>(false);
   const [noValidPath, setNoValidPath] = React.useState<boolean>(false);
   const [animating, setAnimating] = React.useState<boolean>(false);
+  const [callRecMaze, setCallRecMaze] = React.useState<boolean>(false);
 
   const handleMouseDown = (
     rowIdx: number,
@@ -171,13 +173,49 @@ const Pathfinder = () => {
     setAnimating(true);
     const newGrid = clearGrid(grid, true);
     const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
+    let count = 1;
     for (const wall of walls) {
+      count += 1;
       newGrid[wall[0]][wall[1]].isWall = true;
-      setGrid([...newGrid]);
-      await timer(1);
+      if (count % 2 === 0 || count === walls.length) {
+        setGrid([...newGrid]);
+        await timer(1);
+      }
     }
     setAnimating(false);
   };
+
+  const handleRecursiveMaze = async () => {
+    await timer(3);
+    setCallRecMaze(true);
+    setNoValidPath(false);
+    setAnimating(true);
+    const newGrid = clearGrid(grid, true);
+    if (walls.length > 0) {
+      let count = 1;
+      for (const wall of walls) {
+        count += 1;
+        const [r, c] = wall.split(".");
+        const row = parseInt(r);
+        const col = parseInt(c);
+        newGrid[row][col].isWall = true;
+        if (count % 3 === 0 || count === walls.length) {
+          setGrid([...newGrid]);
+          await timer(1);
+        }
+      }
+    }
+    walls.splice(0, walls.length);
+    setAnimating(false);
+    setCallRecMaze(false);
+  };
+
+  React.useEffect(() => {
+    if (callRecMaze) {
+      const newGrid = clearGrid(grid, true);
+      recursiveMaze(newGrid, startNode.rowIdx, startNode.colIdx, true);
+    }
+  }, [recursiveMaze, callRecMaze, clearGrid]);
 
   const handleResetGrid = () => {
     setStartNode(INIT_START_NODE);
@@ -194,6 +232,9 @@ const Pathfinder = () => {
       <SButtonWrapper>
         <Button disabled={animating} onClick={handleRandomMaze}>
           Generate Random Maze
+        </Button>
+        <Button disabled={animating} onClick={handleRecursiveMaze}>
+          Generate Recursive Maze
         </Button>
         <Button disabled={animating} onClick={handleAStar}>
           Visualise A* Algorithm
