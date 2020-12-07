@@ -51,6 +51,7 @@ const SGrid = styled.table`
   border-spacing: 0px;
   border-left: 1px solid #c1c1c1;
   border-top: 1px solid #c1c1c1;
+  font-family: auto;
 `;
 
 const Pathfinder = () => {
