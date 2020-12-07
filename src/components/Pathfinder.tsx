@@ -48,6 +48,12 @@ const SButtonWrapper = styled.div`
   width: 800px;
 `;
 
+const SNoPathText = styled.div`
+  color: #5628df;
+  font-weight: 500;
+  margin-bottom: 20px;
+`;
+
 const SGrid = styled.table`
   border-collapse: separate;
   border-spacing: 0px;
@@ -257,6 +263,7 @@ const Pathfinder = () => {
           Reset Grid
         </Button>
       </SButtonWrapper>
+      {noValidPath && <SNoPathText>No valid path found</SNoPathText>}
       <SGrid>
         <tbody>
           {grid.map((row, rowIdx) => (
@@ -293,7 +300,6 @@ const Pathfinder = () => {
           ))}
         </tbody>
       </SGrid>
-      {noValidPath && <p>No valid path found</p>}
     </>
   );
 };
