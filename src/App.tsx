@@ -11,10 +11,26 @@ const SContainer = styled.div`
   padding: 30px;
 `;
 
+const SHeader = styled.h1`
+  line-height: 1;
+  margin-bottom: 20px;
+`;
+
+const SDescription = styled.p`
+  color: #6b6c73;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+  margin-top: 0;
+`;
+
 const App = () => {
   return (
     <SContainer>
-      <h1>Pathfinder Visualiser</h1>
+      <SHeader>Pathfinder Visualiser</SHeader>
+      <SDescription>
+        Visualise algorithms that calculate the shortest path between two
+        points.
+      </SDescription>
       <Pathfinder />
     </SContainer>
   );
