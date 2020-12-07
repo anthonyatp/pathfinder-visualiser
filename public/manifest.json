@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Pathfinder Visualiser",
+  "name": "Pathfinder Visualiser",
   "icons": [
     {
       "src": "favicon.ico",
