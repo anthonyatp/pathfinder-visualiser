@@ -1,4 +1,9 @@
 body {
+  background: linear-gradient(
+    180deg,
+    rgba(253, 249, 251, 1) 45%,
+    rgba(245, 240, 255, 1) 100%
+  );
   margin: 0;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
