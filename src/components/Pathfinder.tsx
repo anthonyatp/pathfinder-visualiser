@@ -6,6 +6,7 @@ import randomMaze from "../algorithms/randomMaze";
 import recursiveMaze, { walls } from "../algorithms/recursiveMaze";
 import { INode } from "../types";
 import Button from "./Button";
+import Dropdown from "./Dropdown";
 import Node from "./Node";
 
 const GRID_COLS = 41;
@@ -40,7 +41,8 @@ const INIT_TARGET_NODE = {
 };
 
 const SButtonWrapper = styled.div`
-  margin-bottom: 30px;
+  align-items: center;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-evenly;
   width: 800px;
@@ -66,6 +68,8 @@ const Pathfinder = () => {
   const [noValidPath, setNoValidPath] = React.useState<boolean>(false);
   const [animating, setAnimating] = React.useState<boolean>(false);
   const [callRecMaze, setCallRecMaze] = React.useState<boolean>(false);
+  const [mazeType, setMazeType] = React.useState<string>("Recursive");
+  const [algoType, setAlgoType] = React.useState<string>("A*");
 
   const handleMouseDown = (
     rowIdx: number,
@@ -231,15 +235,24 @@ const Pathfinder = () => {
   return (
     <>
       <SButtonWrapper>
-        <Button disabled={animating} onClick={handleRandomMaze}>
-          Generate Random Maze
-        </Button>
-        <Button disabled={animating} onClick={handleRecursiveMaze}>
-          Generate Recursive Maze
-        </Button>
-        <Button disabled={animating} onClick={handleAStar}>
-          Visualise A* Algorithm
-        </Button>
+        <Dropdown
+          label="Maze type"
+          options={["Random", "Recursive"]}
+          selectedOption={mazeType}
+          setSelectedOption={setMazeType}
+          onClick={
+            mazeType === "Random" ? handleRandomMaze : handleRecursiveMaze
+          }
+          disabled={animating}
+        />
+        <Dropdown
+          label="Algorithm"
+          options={["A*"]}
+          selectedOption={algoType}
+          setSelectedOption={setAlgoType}
+          onClick={handleAStar}
+          disabled={animating}
+        />
         <Button disabled={animating} onClick={handleResetGrid}>
           Reset Grid
         </Button>
