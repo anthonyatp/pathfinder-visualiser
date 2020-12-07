@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import InputLabel from "./InputLabel";
 import Play from "./svg/Play";
@@ -65,6 +65,14 @@ const SCircle = styled.div<IStyleProps>`
   line-height: 45px;
   text-align: center;
   width: 45px;
+
+  :hover {
+    ${(props) =>
+      !props.disabled &&
+      css`
+        border: 5px solid #5628df;
+      `}
+  }
 `;
 
 const SList = styled.ul`
@@ -97,7 +105,7 @@ const SListItem = styled.li`
   user-select: none;
 
   :hover {
-    background-color: #efefef;
+    background-color: #f5f0ff;
   }
 `;
 
