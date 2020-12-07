@@ -5,6 +5,7 @@ body {
     rgba(245, 240, 255, 1) 100%
   );
   margin: 0;
+  height: 100vh;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
