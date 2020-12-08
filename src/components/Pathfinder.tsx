@@ -165,13 +165,13 @@ const Pathfinder = () => {
       for (const closedNode of closedNodes) {
         newGrid[closedNode.rowIdx][closedNode.colIdx].isVisited = true;
         setGrid([...newGrid]);
-        await timer(10);
+        await timer(40);
       }
 
       for (const node of path) {
         newGrid[node.rowIdx][node.colIdx].isPath = true;
         setGrid([...newGrid]);
-        await timer(3);
+        await timer(25);
       }
       setAnimating(false);
     } else {
@@ -190,7 +190,7 @@ const Pathfinder = () => {
       newGrid[wall[0]][wall[1]].isWall = true;
       if (count % 2 === 0 || count === walls.length) {
         setGrid([...newGrid]);
-        await timer(1);
+        await timer(25);
       }
     }
     setAnimating(false);
@@ -212,7 +212,7 @@ const Pathfinder = () => {
         newGrid[row][col].isWall = true;
         if (count % 3 === 0 || count === walls.length) {
           setGrid([...newGrid]);
-          await timer(1);
+          await timer(25);
         }
       }
     }
