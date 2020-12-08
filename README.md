@@ -2,6 +2,8 @@
 
 A tool used to visualise algorithms calculate the shortest path between 2 points. Written in TypeScript/React.
 
+Click [here](https://anthonyatp.github.io/pathfinder-visualiser/) to try the live demo.
+
 ## Algorithms
 
 ### Pathfinders
