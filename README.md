@@ -1,6 +1,6 @@
 # Pathfinder Visualiser
 
-A tool used to visualise algorithms calculate the shortest path between 2 points. Written in TypeScript/React.
+A tool used to visualise algorithm's that calculate the shortest path between 2 points. Written in TypeScript/React.
 
 Click [here](https://anthonyatp.github.io/pathfinder-visualiser/) to try the live demo.
 
