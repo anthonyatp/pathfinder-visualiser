@@ -157,6 +157,7 @@ const Pathfinder = () => {
 
   const handleAStar = async () => {
     const { path, closedNodes } = aStar(grid, startNode, targetNode);
+    setMouseDown(false);
     if (path && closedNodes) {
       setAnimating(true);
       setNoValidPath(false);
@@ -182,6 +183,7 @@ const Pathfinder = () => {
   const handleRandomMaze = async () => {
     setNoValidPath(false);
     setAnimating(true);
+    setMouseDown(false);
     const newGrid = clearGrid(grid, true);
     const walls = randomMaze(startNode, targetNode, GRID_ROWS, GRID_COLS);
     let count = 1;
@@ -201,6 +203,7 @@ const Pathfinder = () => {
     setCallRecMaze(true);
     setNoValidPath(false);
     setAnimating(true);
+    setMouseDown(false);
     const newGrid = clearGrid(grid, true);
     if (walls.length > 0) {
       let count = 1;
@@ -236,6 +239,7 @@ const Pathfinder = () => {
     );
     setNoValidPath(false);
     setAnimating(false);
+    setMouseDown(false);
   };
 
   return (
